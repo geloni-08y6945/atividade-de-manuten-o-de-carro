@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Optional: Add a datepicker library like flatpickr for better date input -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 </head>
 
@@ -18,11 +20,15 @@
     </header>
 
     <main>
+        <!-- Existing sections: selecao-veiculo, criar-veiculo, acoes-veiculo, musica-veiculo, configuracao-som -->
         <section id="selecao-veiculo">
             <h2>Selecionar Veículo</h2>
             <button data-tipo="carro">Carro</button>
             <button data-tipo="esportivo">Carro Esportivo</button>
             <button data-tipo="caminhao">Caminhão</button>
+            <button data-tipo="aviao">Avião</button>
+            <button data-tipo="moto">Moto</button>
+            <button data-tipo="bicicleta">Bicicleta</button>
         </section>
 
         <section id="criar-veiculo">
@@ -33,8 +39,16 @@
             <input type="text" id="cor"><br>
             <label for="imagem">Imagem:</label>
             <input type="file" id="imagem" accept="image/*"><br>
-            <label for="capacidadeCarga" id="labelCapacidadeCarga">Capacidade de Carga:</label>
+            <label for="capacidadeCarga" id="labelCapacidadeCarga" style="display: none;">Capacidade de Carga:</label>
             <input type="number" id="capacidadeCarga" style="display: none;"><br>
+            <label for="envergadura" id="labelEnvergadura" style="display: none;">Envergadura (metros):</label>
+            <input type="number" id="envergadura" style="display: none;"><br>
+            <label for="tipoBicicleta" id="labelTipoBicicleta" style="display: none;">Tipo de Bicicleta:</label>
+            <select id="tipoBicicleta" style="display: none;">
+                <option value="montanha">Montanha</option>
+                <option value="estrada">Estrada</option>
+                <option value="urbana">Urbana</option>
+            </select><br>
             <button id="btnCriarVeiculo">Criar/Modificar Veículo</button>
         </section>
 
@@ -45,15 +59,32 @@
             <button data-acao="acelerar"><i class="fas fa-tachometer-alt"></i> Acelerar</button>
             <button data-acao="frear"><i class="fas fa-car-crash"></i> Frear</button>
             <button data-acao="buzinar"><i class="fas fa-bullhorn"></i> Buzinar</button>
-            <button data-acao="ativarTurbo" id="btnTurbo"><i class="fas fa-rocket"></i> Ativar Turbo</button>
-            <button data-acao="desativarTurbo" id="btnDesativarTurbo"><i class="fas fa-rocket"></i> Desativar Turbo</button>
-            <button data-acao="carregar" id="btnCarregar"><i class="fas fa-truck-loading"></i> Carregar</button>
-            <button data-acao="descarregar" id="btnDescarregar"><i class="fas fa-truck-loading"></i> Descarregar</button>
+            <button data-acao="turbo"><i class="fas fa-rocket"></i> Turbo</button>
+            <button data-acao="carregar" id="btnCarregar" style="display: none;"><i class="fas fa-truck-loading"></i> Carregar</button>
+            <button data-acao="descarregar" id="btnDescarregar" style="display: none;"><i class="fas fa-truck-loading"></i> Descarregar</button>
+            <button data-acao="decolar" id="btnDecolar" style="display: none;"><i class="fas fa-plane-departure"></i> Decolar</button>
+            <button data-acao="aterrissar" id="btnAterrissar" style="display: none;"><i class="fas fa-plane-arrival"></i> Aterrissar</button>
             <div id="velocidadeDisplay">Velocidade: <span id="velocidadeValor">0</span></div>
             <div class="barra-velocidade">
                 <div class="progresso-velocidade" id="progressoVelocidade"></div>
             </div>
+            <div id="cargaAtualDisplay" style="display: none;">Carga Atual: <span id="cargaAtualValor">0</span></div>
+            <div id="altitudeDisplay" style="display: none;">Altitude: <span id="altitudeValor">0</span></div>
         </section>
+
+        <section id="musica-veiculo">
+             <h2>Música do Veículo</h2>
+             <input type="file" id="musicaInput" accept="audio/*">
+             <button id="btnTocarMusica">Tocar Música</button>
+             <button id="btnPararMusica">Parar Música</button>
+             <div id="nomeMusica">Nenhuma música selecionada</div>
+         </section>
+
+        <section id="configuracao-som">
+             <h2>Configurações de Som</h2>
+             <label for="volumeGeral">Volume Geral:</label>
+             <input type="range" id="volumeGeral" min="0" max="1" step="0.1" value="0.5">
+         </section>
 
         <section id="informacoes-veiculo">
             <h2>Informações do Veículo</h2>
@@ -61,12 +92,50 @@
             <img id="imagemExibida" src="" alt="Imagem do Veículo" style="display: none; max-width: 200px;">
             <div id="statusVeiculo" class="status-desligado">Desligado</div>
         </section>
+
+        <!-- Seção de Manutenção -->
+        <section id="manutencao-veiculo" style="display: none;"> <!-- Initially hidden -->
+            <h2>Manutenção do Veículo</h2>
+
+            <!-- Histórico -->
+            <h3>Histórico de Manutenção</h3>
+            <div id="historicoManutencaoLista" class="lista-manutencao">
+                Nenhum histórico registrado.
+            </div>
+
+            <!-- Agendamento -->
+            <h3>Agendar Nova Manutenção</h3>
+            <form id="formAgendarManutencao">
+                <label for="manutencaoData">Data:</label>
+                <input type="date" id="manutencaoData" required><br>
+
+                <label for="manutencaoTipo">Tipo de Serviço:</label>
+                <input type="text" id="manutencaoTipo" placeholder="Ex: Troca de óleo" required><br>
+
+                <label for="manutencaoCusto">Custo (R$):</label>
+                <input type="number" id="manutencaoCusto" step="0.01" min="0" required><br>
+
+                <label for="manutencaoDescricao">Descrição (Opcional):</label>
+                <textarea id="manutencaoDescricao" rows="3"></textarea><br>
+
+                <button type="submit">Agendar/Registrar Manutenção</button>
+            </form>
+
+            <!-- Agendamentos Futuros -->
+            <h3>Agendamentos Futuros</h3>
+            <div id="agendamentosFuturosLista" class="lista-manutencao">
+                Nenhum agendamento futuro.
+            </div>
+        </section>
+
     </main>
 
     <footer>
         <p>© 2024 Garagem Inteligente. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- Optional: Add flatpickr script -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="script.js"></script>
 </body>
 
