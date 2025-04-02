@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garagem Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <header>
+        <h1>Garagem Inteligente</h1>
+    </header>
+
+    <main>
+        <section id="selecao-veiculo">
+            <h2>Selecionar Veículo</h2>
+            <button data-tipo="carro">Carro</button>
+            <button data-tipo="esportivo">Carro Esportivo</button>
+            <button data-tipo="caminhao">Caminhão</button>
+        </section>
+
+        <section id="criar-veiculo">
+            <h2>Criar/Modificar Veículo</h2>
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo"><br>
+            <label for="cor">Cor:</label>
+            <input type="text" id="cor"><br>
+            <label for="imagem">Imagem:</label>
+            <input type="file" id="imagem" accept="image/*"><br>
+            <label for="capacidadeCarga" id="labelCapacidadeCarga">Capacidade de Carga:</label>
+            <input type="number" id="capacidadeCarga" style="display: none;"><br>
+            <button id="btnCriarVeiculo">Criar/Modificar Veículo</button>
+        </section>
+
+        <section id="acoes-veiculo">
+            <h2>Ações</h2>
+            <button data-acao="ligar"><i class="fas fa-power-off"></i> Ligar</button>
+            <button data-acao="desligar"><i class="fas fa-power-off"></i> Desligar</button>
+            <button data-acao="acelerar"><i class="fas fa-tachometer-alt"></i> Acelerar</button>
+            <button data-acao="frear"><i class="fas fa-car-crash"></i> Frear</button>
+            <button data-acao="buzinar"><i class="fas fa-bullhorn"></i> Buzinar</button>
+            <button data-acao="ativarTurbo" id="btnTurbo"><i class="fas fa-rocket"></i> Ativar Turbo</button>
+            <button data-acao="desativarTurbo" id="btnDesativarTurbo"><i class="fas fa-rocket"></i> Desativar Turbo</button>
+            <button data-acao="carregar" id="btnCarregar"><i class="fas fa-truck-loading"></i> Carregar</button>
+            <button data-acao="descarregar" id="btnDescarregar"><i class="fas fa-truck-loading"></i> Descarregar</button>
+            <div id="velocidadeDisplay">Velocidade: <span id="velocidadeValor">0</span></div>
+            <div class="barra-velocidade">
+                <div class="progresso-velocidade" id="progressoVelocidade"></div>
+            </div>
+        </section>
+
+        <section id="informacoes-veiculo">
+            <h2>Informações do Veículo</h2>
+            <div id="informacoesVeiculo">Nenhum veículo selecionado.</div>
+            <img id="imagemExibida" src="" alt="Imagem do Veículo" style="display: none; max-width: 200px;">
+            <div id="statusVeiculo" class="status-desligado">Desligado</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Garagem Inteligente. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
